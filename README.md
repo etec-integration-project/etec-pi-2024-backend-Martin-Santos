@@ -1,2 +1,2 @@
-npm i 
-docker compose --build -d
+- npm i 
+- docker compose --build -d
