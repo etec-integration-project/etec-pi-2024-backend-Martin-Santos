@@ -33,7 +33,7 @@ const initializeDatabase = async () => {
 };
 
 app.get('/', (req, res) => {
-    res.send('Hola');
+    res.send('BackEnd Funcionando');
 });
 
 app.get('/ping', async (req, res) => {
@@ -45,5 +45,5 @@ app.use('/auth', authRutas);
 
 app.listen(3000, async () => {
     await initializeDatabase();
-    console.log('Servidor corriendo en el puerto', 3000);
+    console.log('Backend corriendo en el puerto', 3000);
 });

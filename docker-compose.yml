@@ -7,7 +7,7 @@ services:
       - ./.env
     environment:
       - MYSQL_ROOT_PASSWORD=123456
-      - MYSQL_DATABASE=mayba
+      - MYSQL_DATABASE=DB
     ports:
       - 3307:3306
   app:

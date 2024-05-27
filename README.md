@@ -25,5 +25,5 @@ En la consola de tu IDE lleva a cabo los siguientes pasos para poder levantar el
 
 ## **Parar el proyecto y los contenedores de Docker**
 
-Para detener la ejecución, simplemente presiona "Ctrl +" en la terminal donde anteriormente ya ejecutaste el comando `docker-compose up`. Esto detendrá los contenedores y en consecuencia dejará de utilizar los puertos utilizados.
+Para detener la ejecución, simplemente presiona "Ctrl + C" en la terminal donde anteriormente ya ejecutaste el comando `docker-compose up`. Esto detendrá los contenedores y en consecuencia dejará de utilizar los puertos utilizados.
 
