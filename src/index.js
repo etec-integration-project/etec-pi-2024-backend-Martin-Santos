@@ -9,7 +9,7 @@ const app = express();
 
 export const pool = createPool({
     host: process.env.MYSQLDB_HOST,
-    user: 'root',
+    user: process.env.MYSQLDB_USER,
     password: process.env.MYSQLDB_ROOT_PASSWORD,
     port: process.env.MYSQLDB_DOCKER_PORT,
     database: process.env.MYSQLDB_DATABASE 
@@ -37,8 +37,12 @@ app.get('/', (req, res) => {
 });
 
 app.get('/ping', async (req, res) => {
-    const resultado = await pool.query('SELECT NOW()');
-    res.json(resultado[0]);
+    try {
+        const [rows] = await pool.query('SELECT NOW()');
+        res.json(rows);
+    } catch (error) {
+        res.status(500).json({ error: 'Error ejecutando ping' });
+    }
 });
 
 app.use('/auth', authRutas);

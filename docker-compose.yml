@@ -1,27 +1,24 @@
-version: '3.8'
-
 services:
-  backend:
-    image: mysql
+  db:
+    image: mysql:8.0
     env_file:
       - ./.env
     environment:
       - MYSQL_ROOT_PASSWORD=123456
       - MYSQL_DATABASE=DB
     ports:
-      - 3307:3306
+      - "3307:3306"
+
   app:
     build: .
     depends_on:
-      - backend
-    links:
-      - backend
+      - db
     ports:
-      - 3000:3000
+      - "3000:3000"
     environment:
-      - MYSQLDB_HOST=backend
+      - MYSQLDB_HOST=db
+      - MYSQLDB_USER=root
       - MYSQLDB_ROOT_PASSWORD=123456
-      - MYSQLDB_DATABASE=mayba
-      - MYSQLDB_LOCAL_PORT=3307
+      - MYSQLDB_DATABASE=DB
       - MYSQLDB_DOCKER_PORT=3306
       - JWT_SECRET=mysecretkey
