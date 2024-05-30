@@ -12,7 +12,8 @@ En la consola de tu IDE coloca los siguientes pasos, para poder levantar el proy
     ```
     cd etec-pi-2024-backend-Martin-Santos
     ```
-3. **Iniciar los contenedores y el proyecto en el siguiente orden:**
+3. **Iniciar los contenedores de docker y el proyecto:**
+    Colocar los siguientes comandos en el mismo orden:
     ```
     docker compose up -d --build app 
     docker compose down app
