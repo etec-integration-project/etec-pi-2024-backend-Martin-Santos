@@ -1,6 +1,6 @@
 MARTIN SANTOS
 
-En la consola de tu IDE lleva a cabo los siguientes pasos para poder levantar el proyecto correctamente:
+En la consola de tu IDE coloca los siguientes pasos, para poder levantar el proyecto correctamente:
 
 1. **Clonar el repositorio de Git Hub en tu PC:**
 
@@ -12,18 +12,46 @@ En la consola de tu IDE lleva a cabo los siguientes pasos para poder levantar el
     ```
     cd etec-pi-2024-backend-Martin-Santos
     ```
-3. **Iniciar los contenedores y el proyecto:**
-
+3. **Iniciar los contenedores y el proyecto en el siguiente orden:**
     ```
-    docker-compose up --build -d 
+    docker compose up -d --build app 
+    docker compose down app
+    docker compose up --build
     ```
-4. **Accede a la aplicación:**
+4. **Acceder a la aplicación:**
 
-    Una vez que los contenedores de Docker estén en funcionamiento (asegurarse que la consola del IDE muestre: "ready for connection"), abrir tu navegador y coloca el siguiente enlace en el buscador:
-   `http://localhost:3000/ping` para poder ver la consulta que realiza el codigo del BackEnd a la base datos. Que en este caso es una consulta NOW() la cual muestra un json con la informacion de la fecha y hora
+    Cuando los contenedores de Docker estén en funcionamiento (debes asegurarte que la consola de tu IDE muestre: "ready for connections"). Luego abre tu navegador y coloca el siguiente link en el buscador:
+   `http://localhost:3000/ping` para  ver la consulta que realiza el codigo del BackEnd a la base datos. Que en este caso es una consulta NOW() la cual muestra un json con la informacion de la fecha y hora
    del ultimo acceso a la misma.
+
+5. **Peticiones mediante Curl**
+
+    En una nueva terminal colocar los siguietes comandos:
+
+    Para registrar un usuario:
+    ```
+    curl -X POST http://localhost:3000/auth/registrar \
+    -H "Content-Type: application/json" \
+    -d '{
+        "username": "usuario_prueba",
+        "password": "contrasena_prueba"
+        }'
+    ```
+    Para logearse:
+    ```
+    curl -X POST http://localhost:3000/auth/iniciar-sesion \
+    -H "Content-Type: application/json" \
+    -d '{
+        "username": "usuario_prueba",
+        "password": "contrasena_prueba"
+        }'
+    ```
+    Para ver los usuarios registrados:
+    ```
+    curl -X GET http://localhost:3000/auth/usuarios
+    ```
 
 ## **Parar el proyecto y los contenedores de Docker**
 
-Para detener la ejecución, simplemente presiona "Ctrl + C" en la terminal donde anteriormente ya ejecutaste el comando `docker-compose up`. Esto detendrá los contenedores y en consecuencia dejará de utilizar los puertos utilizados.
+Para detener la ejecución, solo presiona "Ctrl + C" en la terminal donde anteriormente ya ejecutaste el comando `docker-compose up --build`. Esto va a detener los contenedores y posteriormente dejará de utilizar los puertos que el proyecto requiere para fucionar.
 
