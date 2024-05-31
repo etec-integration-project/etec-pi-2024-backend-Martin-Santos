@@ -15,6 +15,7 @@ En la consola de tu IDE coloca los siguientes pasos, para poder levantar el proy
 3. **Iniciar los contenedores de docker y el proyecto:**
     Colocar los siguientes comandos en el mismo orden:
     ```
+    docker compose up -d db 
     docker compose up -d --build app 
     docker compose down app
     docker compose up --build
@@ -31,25 +32,25 @@ En la consola de tu IDE coloca los siguientes pasos, para poder levantar el proy
 
     Para registrar un usuario:
     ```
-    curl -X POST http://localhost:3000/auth/registrar \
+    curl -X POST http://localhost:3000/autenticacion/registrar \
     -H "Content-Type: application/json" \
     -d '{
-        "username": "usuario_prueba",
-        "password": "contrasena_prueba"
+        "username": "user_test",
+        "password": "password_test"
         }'
     ```
     Para logearse:
     ```
-    curl -X POST http://localhost:3000/auth/iniciar-sesion \
+    curl -X POST http://localhost:3000/autenticacion/iniciar-sesion \
     -H "Content-Type: application/json" \
     -d '{
-        "username": "usuario_prueba",
-        "password": "contrasena_prueba"
+        "username": "user_test",
+        "password": "password_test"
         }'
     ```
     Para ver los usuarios registrados:
     ```
-    curl -X GET http://localhost:3000/auth/usuarios
+    curl -X GET http://localhost:3000/autenticacion/usuarios
     ```
 
 ## **Parar el proyecto y los contenedores de Docker**

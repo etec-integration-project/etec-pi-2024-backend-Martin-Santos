@@ -1,7 +1,7 @@
 import express from 'express';
 import { createPool } from 'mysql2/promise';
 import { config } from 'dotenv';
-import authRutas from './rutas/authRutas.js';
+import authRutas from './rutas/rutasAutenticacion.js';
 
 config();
 
@@ -45,7 +45,8 @@ app.get('/ping', async (req, res) => {
     }
 });
 
-app.use('/auth', authRutas);
+// Cambiar la ruta de /api/auth a /autenticacion
+app.use('/autenticacion', authRutas);
 
 app.listen(3000, async () => {
     await initializeDatabase();

@@ -1,5 +1,5 @@
 import express from 'express';
-import { registrar, iniciarSesion, listarUsuarios } from '../controladores/authControlador.js';
+import { registrar, iniciarSesion, listarUsuarios } from '../controladores/controladorAutenticacion.js';
 
 const router = express.Router();
 
