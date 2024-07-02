@@ -2,6 +2,7 @@ import express from 'express';
 import { createPool } from 'mysql2/promise';
 import { config } from 'dotenv';
 import authRutas from './rutas/rutasAutenticacion.js';
+import cors from "cors";
 
 config();
 
@@ -15,6 +16,7 @@ export const pool = createPool({
     database: process.env.MYSQLDB_DATABASE 
 });
 
+app.use(cors());
 app.use(express.json());
 
 const initializeDatabase = async () => {
@@ -26,9 +28,44 @@ const initializeDatabase = async () => {
                 password VARCHAR(255) NOT NULL
             )
         `);
+        await pool.query(`
+            CREATE TABLE IF NOT EXISTS productos (
+                id INT AUTO_INCREMENT PRIMARY KEY,
+                nameProduct VARCHAR(255) NOT NULL,
+                description TEXT NOT NULL,
+                urlImage VARCHAR(255) NOT NULL
+            )
+        `);
+
         console.log("Tabla 'users' creada o ya existe.");
     } catch (error) {
-        console.error('Error al inicializar la base de datos:', error);
+        console.error('Error al intentar crear la tabla:', error);
+    }
+    try {
+        // ========== PRODUCTS ==========
+        const [rows, fields] = await pool.query('SELECT * FROM productos');
+
+        if (rows.length === 0) {
+            // Insertar productos si no existen
+            const productos = [
+                ["Canon Eos RT7", "Descripcion para Canon Eos RT7", "https://s7d1.scene7.com/is/image/canon/2727C001_rebelt7-body_primary?wid=800"],
+                ["Nikon D5600", "Descripcion Nikon D5600", "https://imagedelivery.net/4fYuQyy-r8_rpBpcY7lH_A/falabellaCL/113695931_01/w=800,h=800,fit=pad"],
+                ["Sony Alpha A6000", "Descripcion para Sony Alpha A6000", "https://m.media-amazon.com/images/I/61kHENeCK8L._AC_SL1000_.jpg"],
+                ["Fujifilm X-T5", "Descripcion para Fujifilm X-T5", "https://www.bhphotovideo.com/images/images2500x2500/fujifilm_16782301_x_t5_mirrorless_camera_black_1731281.jpg"],
+                ["Pentax K1000", "Descripcion para Pentax K1000", "https://m.media-amazon.com/images/I/81Qp5jjq7vL.jpg"]
+            ];
+
+            const insertQuery = 'INSERT INTO productos (nameProduct, description, urlImage) VALUES (?, ?, ?)';
+
+            for (const producto of productos) {
+                await pool.query(insertQuery, producto);
+            }
+        }
+
+
+        console.log("Base inicializada correctamente");
+    } catch (error) {
+        console.error("Error inicializando la base de datos:", error);
     }
 };
 

@@ -55,3 +55,14 @@ export const listarUsuarios = async (req, res) => {
         res.status(500).send('Error al listar usuarios');
     }
 };
+
+export const productos = async (req, res) => {
+    try {
+        const [rows] = await pool.query('SELECT * FROM productos');
+        res.status(200).json(rows);
+    } catch (error) {
+        res.status(500).send('Error al mostrar los productos');
+    }
+
+    
+};
