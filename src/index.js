@@ -52,7 +52,10 @@ const initializeDatabase = async () => {
                 ["Nikon D5600", "Descripcion Nikon D5600", "https://radojuva.com/wp-content/uploads/2020/06/nikon-d5600-review-2.jpg"],
                 ["Sony Alpha A6000", "Descripcion para Sony Alpha A6000", "https://m.media-amazon.com/images/I/61kHENeCK8L._AC_SL1000_.jpg"],
                 ["Fujifilm X-T5", "Descripcion para Fujifilm X-T5", "https://www.bhphotovideo.com/images/images2500x2500/fujifilm_16782301_x_t5_mirrorless_camera_black_1731281.jpg"],
-                ["Pentax K1000", "Descripcion para Pentax K1000", "https://m.media-amazon.com/images/I/81Qp5jjq7vL.jpg"]
+                ["Pentax K1000", "Descripcion para Pentax K1000", "https://m.media-amazon.com/images/I/81Qp5jjq7vL.jpg"],
+                ["Leica SL2", "Descripcion para Leica SL2", "https://leica-camera.com/sites/default/files/styles/meta_tag_product_image/public/pm-27555-10854__SL2.jpg?itok=Jp_fm1W7"],
+                ["Olympus OM-1", "Descripcion para Olympus OM-1", "https://www.blogdelfotografo.com/wp-content/uploads/2023/10/OM-1-OM-System.webp"],
+                ["Panasonic Lumix S5II", "DEscripcion para Panasonic Lumix S5II", "https://i.ebayimg.com/thumbs/images/g/KqoAAOSwYY5kuskE/s-l1200.jpg"]
             ];
 
             const insertQuery = 'INSERT INTO productos (nameProduct, description, urlImage) VALUES (?, ?, ?)';
