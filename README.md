@@ -12,6 +12,12 @@ En la consola de tu IDE coloca los siguientes pasos, para poder levantar el proy
     ```
     cd etec-pi-2024-backend-Martin-Santos
     ```
+
+3. **Crear la red de docker**
+    ```
+    docker network create santos-app-network
+    ```
+
 3. **Iniciar los contenedores de docker y el proyecto:**
     Colocar los siguientes comandos en el mismo orden:
     ```

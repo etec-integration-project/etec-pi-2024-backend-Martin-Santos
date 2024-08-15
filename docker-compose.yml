@@ -1,3 +1,5 @@
+version: '3.8'
+
 services:
   db:
     image: mysql:8.0
@@ -7,7 +9,10 @@ services:
       - MYSQL_ROOT_PASSWORD=123456
       - MYSQL_DATABASE=DB
     ports:
-      - "3307:3306"
+      - "3307:3306"  # Puerto expuesto en tu máquina
+    networks:
+      - santos-app-network
+    restart: always  # Asegura que el contenedor se reinicie si falla
 
   app:
     build: .
@@ -22,3 +27,10 @@ services:
       - MYSQLDB_DATABASE=DB
       - MYSQLDB_DOCKER_PORT=3306
       - JWT_SECRET=mysecretkey
+    networks:
+      - santos-app-network
+    restart: always  # Asegura que el contenedor se reinicie si falla
+
+networks:
+  santos-app-network:
+    external: true
