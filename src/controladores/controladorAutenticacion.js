@@ -6,19 +6,25 @@ import { config } from 'dotenv';
 config();
 
 export const registrar = async (req, res) => {
-    const { username, password } = req.body;
+    const { usuario, password, email } = req.body;
 
     try {
-        const [existingUser] = await pool.query('SELECT * FROM users WHERE username = ?', [username]);
+        // Verifica si el usuario ya existe
+        const [existingUser] = await pool.query('SELECT * FROM users WHERE username = ?', [usuario]);
 
         if (existingUser.length > 0) {
             return res.status(409).send('Usuario existente');
         }
 
+        // Hash de la contraseña
         const passwordHashed = await bcrypt.hash(password, 8);
-        await pool.query('INSERT INTO users (username, password) VALUES (?, ?)', [username, passwordHashed]);
+
+        // Inserta el nuevo usuario en la base de datos
+        await pool.query('INSERT INTO users (username, email, password) VALUES (?, ?, ?)', [usuario, email, passwordHashed]);
+
         res.status(201).send('Usuario registrado con éxito');
     } catch (error) {
+        console.error('Error al registrar usuario:', error);
         res.status(500).send('Error al registrar usuario');
     }
 };
