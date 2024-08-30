@@ -30,10 +30,11 @@ export const registrar = async (req, res) => {
 };
 
 export const iniciarSesion = async (req, res) => {
-    const { username, password } = req.body;
+    const { email, password } = req.body;
 
     try {
-        const [rows] = await pool.query('SELECT * FROM users WHERE username = ?', [username]);
+        // Buscar el usuario por email en lugar de username
+        const [rows] = await pool.query('SELECT * FROM users WHERE email = ?', [email]);
 
         if (rows.length === 0) {
             return res.status(404).send('Usuario no encontrado');
@@ -49,6 +50,7 @@ export const iniciarSesion = async (req, res) => {
         const token = jwt.sign({ id: usuario.id }, process.env.JWT_SECRET, { expiresIn: '1h' });
         res.status(200).json({ token });
     } catch (error) {
+        console.error('Error al iniciar sesión:', error);
         res.status(500).send('Error al iniciar sesión');
     }
 };
@@ -69,6 +71,4 @@ export const productos = async (req, res) => {
     } catch (error) {
         res.status(500).send('Error al mostrar los productos');
     }
-
-    
 };
