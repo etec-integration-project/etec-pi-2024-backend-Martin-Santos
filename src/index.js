@@ -73,7 +73,7 @@ const initializeDatabase = async () => {
     }
 };
 
-app.get('/', (req, res) => {
+app.get('/app', (req, res) => {
     res.send('BackEnd Funcionando');
 });
 
