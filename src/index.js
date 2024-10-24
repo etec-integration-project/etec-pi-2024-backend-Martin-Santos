@@ -77,7 +77,7 @@ app.get('/', (req, res) => {
     res.send('BackEnd Funcionando');
 });
 
-app.get('/ping', async (req, res) => {
+app.get('/app/ping', async (req, res) => {
     try {
         const [rows] = await pool.query('SELECT NOW()');
         res.json(rows);
@@ -87,7 +87,7 @@ app.get('/ping', async (req, res) => {
 });
 
 // Cambiar la ruta de /api/auth a /autenticacion
-app.use('/autenticacion', authRutas);
+app.use('/app/autenticacion', authRutas);
 
 app.listen(5000, async () => {
     await initializeDatabase();
