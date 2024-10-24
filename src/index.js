@@ -89,7 +89,7 @@ app.get('/ping', async (req, res) => {
 // Cambiar la ruta de /api/auth a /autenticacion
 app.use('/autenticacion', authRutas);
 
-app.listen(3000, async () => {
+app.listen(5000, async () => {
     await initializeDatabase();
-    console.log('Backend corriendo en el puerto', 3000);
+    console.log('Backend corriendo en el puerto', 5000);
 });
