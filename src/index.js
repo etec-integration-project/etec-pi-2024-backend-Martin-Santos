@@ -33,7 +33,7 @@ const initializeDatabase = async () => {
             CREATE TABLE IF NOT EXISTS productos (
                 id INT AUTO_INCREMENT PRIMARY KEY,
                 nameProduct VARCHAR(255) NOT NULL,
-                description TEXT NOT NULL,
+                price INT NOT NULL,
                 urlImage VARCHAR(255) NOT NULL
             )
         `);
@@ -49,17 +49,17 @@ const initializeDatabase = async () => {
         if (rows.length === 0) {
             // Insertar productos si no existen
             const productos = [
-                ["Canon Eos RT7", "Descripcion para Canon Eos RT7", "https://s7d1.scene7.com/is/image/canon/2727C001_rebelt7-body_primary?wid=800"],
-                ["Nikon D5600", "Descripcion Nikon D5600", "https://radojuva.com/wp-content/uploads/2020/06/nikon-d5600-review-2.jpg"],
-                ["Sony Alpha A6000", "Descripcion para Sony Alpha A6000", "https://m.media-amazon.com/images/I/61kHENeCK8L._AC_SL1000_.jpg"],
-                ["Fujifilm X-T5", "Descripcion para Fujifilm X-T5", "https://www.bhphotovideo.com/images/images2500x2500/fujifilm_16782301_x_t5_mirrorless_camera_black_1731281.jpg"],
-                ["Pentax K1000", "Descripcion para Pentax K1000", "https://m.media-amazon.com/images/I/81Qp5jjq7vL.jpg"],
-                ["Leica SL2", "Descripcion para Leica SL2", "https://leica-camera.com/sites/default/files/styles/meta_tag_product_image/public/pm-27555-10854__SL2.jpg?itok=Jp_fm1W7"],
-                ["Olympus OM-1", "Descripcion para Olympus OM-1", "https://www.blogdelfotografo.com/wp-content/uploads/2023/10/OM-1-OM-System.webp"],
-                ["Panasonic Lumix S5II", "DEscripcion para Panasonic Lumix S5II", "https://i.ebayimg.com/thumbs/images/g/KqoAAOSwYY5kuskE/s-l1200.jpg"]
+                ["Canon Eos RT7", "10", "https://s7d1.scene7.com/is/image/canon/2727C001_rebelt7-body_primary?wid=800"],
+                ["Nikon D5600", "10", "https://radojuva.com/wp-content/uploads/2020/06/nikon-d5600-review-2.jpg"],
+                ["Sony Alpha A6000", "10", "https://m.media-amazon.com/images/I/61kHENeCK8L._AC_SL1000_.jpg"],
+                ["Fujifilm X-T5", "10", "https://www.bhphotovideo.com/images/images2500x2500/fujifilm_16782301_x_t5_mirrorless_camera_black_1731281.jpg"],
+                ["Pentax K1000", "10", "https://m.media-amazon.com/images/I/81Qp5jjq7vL.jpg"],
+                ["Leica SL2", "10", "https://leica-camera.com/sites/default/files/styles/meta_tag_product_image/public/pm-27555-10854__SL2.jpg?itok=Jp_fm1W7"],
+                ["Olympus OM-1", "10", "https://www.blogdelfotografo.com/wp-content/uploads/2023/10/OM-1-OM-System.webp"],
+                ["Panasonic Lumix S5II", "10", "https://i.ebayimg.com/thumbs/images/g/KqoAAOSwYY5kuskE/s-l1200.jpg"]
             ];
 
-            const insertQuery = 'INSERT INTO productos (nameProduct, description, urlImage) VALUES (?, ?, ?)';
+            const insertQuery = 'INSERT INTO productos (nameProduct, price, urlImage) VALUES (?, ?, ?)';
 
             for (const producto of productos) {
                 await pool.query(insertQuery, producto);
@@ -86,7 +86,7 @@ app.get('/app/ping', async (req, res) => {
     }
 });
 
-// Cambiar la ruta de /api/auth a /autenticacion
+
 app.use('/app/autenticacion', authRutas);
 
 app.listen(5000, async () => {
