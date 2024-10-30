@@ -30,14 +30,14 @@ export const registrar = async (req, res) => {
 };
 
 export const createProducts = async (req, res) => {
-    const { name, price, image } = req.body;
+    const { name, price, urlImage } = req.body;
     try {
         // Inserta el nuevo producto en la base de datos
-        const [existingProduct] = await pool.query('SELECT * FROM productos WHERE nameProduct = ?', [name]);
+        const [existingProduct] = await pool.query('SELECT * FROM productos WHERE nameProduct = ?', [urlImage]);
         if (existingProduct.length > 0) {
             return res.status(409).send('Producto existente');
         }
-        await pool.query('INSERT INTO productos (nameProduct, price, urlImage) VALUES (?, ?, ?)', [name, price, image]);
+        await pool.query('INSERT INTO productos (nameProduct, price, urlImage) VALUES (?, ?, ?)', [name, price, urlImage]);
         res.status(201).send('Producto registrado con éxito');
     }
     catch (error){
