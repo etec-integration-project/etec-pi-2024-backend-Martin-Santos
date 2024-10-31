@@ -54,7 +54,7 @@ const initializeDatabase = async () => {
                 ["Sony Alpha A6000", "10", "https://m.media-amazon.com/images/I/61kHENeCK8L._AC_SL1000_.jpg"],
                 ["Fujifilm X-T5", "10", "https://www.bhphotovideo.com/images/images2500x2500/fujifilm_16782301_x_t5_mirrorless_camera_black_1731281.jpg"],
                 ["Pentax K1000", "10", "https://m.media-amazon.com/images/I/81Qp5jjq7vL.jpg"],
-                ["Leica SL2", "10", "https://leica-camera.com/sites/default/files/styles/meta_tag_product_image/public/pm-27555-10854__SL2.jpg?itok=Jp_fm1W7"],
+                ["Leica SL2", "10", "https://cdn11.bigcommerce.com/s-r16b86mn51/images/stencil/original/products/9325/25542/Leica_SL2-S_35mm_f2__90499.1675797014.jpg?c=2&imbypass=on&imbypass=on"],
                 ["Olympus OM-1", "10", "https://www.blogdelfotografo.com/wp-content/uploads/2023/10/OM-1-OM-System.webp"],
                 ["Panasonic Lumix S5II", "10", "https://i.ebayimg.com/thumbs/images/g/KqoAAOSwYY5kuskE/s-l1200.jpg"]
             ];
