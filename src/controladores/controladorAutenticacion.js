@@ -51,7 +51,6 @@ export const iniciarSesion = async (req, res) => {
     const { email, password } = req.body;
 
     try {
-        // Buscar el usuario por email en lugar de username
         const [rows] = await pool.query('SELECT * FROM users WHERE email = ?', [email]);
 
         if (rows.length === 0) {
@@ -74,17 +73,15 @@ export const iniciarSesion = async (req, res) => {
 };
 
 export const updateProduct = async (req, res) => {
-    const { id } = req.params; // Obtiene el ID del producto desde los parámetros de la ruta
-    const { name, price, urlImage } = req.body; // Datos actualizados del producto desde el cuerpo de la solicitud
+    const { id } = req.params; 
+    const { name, price, urlImage } = req.body; 
 
     try {
-        // Actualiza el producto en la base de datos usando el ID
         const result = await pool.query(
-            'UPDATE productos SET name = ?, price = ?, urlImage = ? WHERE id = ?',
+            'UPDATE productos SET nameProduct = ?, price = ?, urlImage = ? WHERE id = ?',
             [name, price, urlImage, id]
         );
 
-        // Verifica si algún registro fue afectado
         if (result.affectedRows === 0) {
             return res.status(404).send('Producto no encontrado');
         }
