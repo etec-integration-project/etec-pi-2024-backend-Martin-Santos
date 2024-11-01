@@ -80,7 +80,7 @@ export const updateProduct = async (req, res) => {
     try {
         // Actualiza el producto en la base de datos usando el ID
         const result = await pool.query(
-            'UPDATE products SET name = ?, price = ?, urlImage = ? WHERE id = ?',
+            'UPDATE productos SET name = ?, price = ?, urlImage = ? WHERE id = ?',
             [name, price, urlImage, id]
         );
 
