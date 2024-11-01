@@ -73,6 +73,30 @@ export const iniciarSesion = async (req, res) => {
     }
 };
 
+export const updateProduct = async (req, res) => {
+    const { id } = req.params; // Obtiene el ID del producto desde los parámetros de la ruta
+    const { name, price, urlImage } = req.body; // Datos actualizados del producto desde el cuerpo de la solicitud
+
+    try {
+        // Actualiza el producto en la base de datos usando el ID
+        const result = await pool.query(
+            'UPDATE products SET name = ?, price = ?, urlImage = ? WHERE id = ?',
+            [name, price, urlImage, id]
+        );
+
+        // Verifica si algún registro fue afectado
+        if (result.affectedRows === 0) {
+            return res.status(404).send('Producto no encontrado');
+        }
+
+        res.status(200).send('Producto actualizado con éxito');
+    } catch (error) {
+        console.error('Error al actualizar el producto:', error);
+        res.status(500).send('Error al actualizar el producto');
+    }
+};
+
+
 export const listarUsuarios = async (req, res) => {
     try {
         const [rows] = await pool.query('SELECT id, username FROM users');
