@@ -77,13 +77,9 @@ export const updateProduct = async (req, res) => {
     const { name, price, urlImage } = req.body; 
 
     try {
-        pool.query(
+        const result = await pool.query(
             'UPDATE productos SET nameProduct = ?, price = ?, urlImage = ? WHERE id = ?',
-            [name, price, urlImage, id], 
-            (err) => {
-                if (err) throw res.status(400).send('error');
-                res.status(200).send('todo ok!')
-            }
+            [name, price, urlImage, id]
         );
 
         if (result.affectedRows === 0) {
