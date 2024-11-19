@@ -19,10 +19,10 @@ export const registrar = async (req, res) => {
         }
 
         // Hash de la contraseña
-        const salt = bcrypt.genSaltSync(8);
-        const passwordHashed = bcrypt.hashSync(password, salt);
+        // const salt = bcrypt.genSaltSync(8);
+        // const passwordHashed = bcrypt.hashSync(password, salt);
 
-        // const passwordHashed = await bcrypt.hash(password, 8);
+        const passwordHashed = await bcrypt.hash(password, 8);
 
         // Inserta el nuevo usuario en la base de datos
         await pool.query('INSERT INTO users (username, email, password) VALUES (?, ?, ?)', [usuario, email, passwordHashed]);
