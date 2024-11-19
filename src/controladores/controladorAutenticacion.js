@@ -6,7 +6,7 @@ import { config } from 'dotenv';
 config();
 
 export const registrar = async (req, res) => {
-    const { usuario, password, email } = req.body;
+    let { usuario, password, email } = req.body;
 
     try {
         // Verifica si el usuario ya existe
