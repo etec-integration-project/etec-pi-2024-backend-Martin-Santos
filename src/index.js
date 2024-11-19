@@ -49,7 +49,6 @@ const initializeDatabase = async () => {
                 id INT AUTO_INCREMENT PRIMARY KEY,
                 userID INT NOT NULL,
                 cartContent VARCHAR(1024) NOT NULL
-                // cartContent JSON NOT NULL
             )
         `);
 
