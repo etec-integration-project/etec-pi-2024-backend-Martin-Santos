@@ -32,7 +32,7 @@ export const registrar = async (req, res) => {
         usuario = rows[0];
         
 
-        const token = jwt.sign({ id: usuario.id }, process.env.JWT_SECRET, { expiresIn: '1h' });
+        const token = jwt.sign({ id: usuario.id }, process.env.JWT_SECRET);
         res.cookie("santos-app", token);
 
         res.status(201).send('Usuario registrado con éxito');
@@ -77,7 +77,7 @@ export const iniciarSesion = async (req, res) => {
             return res.status(401).send('Contraseña inválida');
         }
 
-        const token = jwt.sign({ id: usuario.id }, process.env.JWT_SECRET, { expiresIn: '1h' });
+        const token = jwt.sign({ id: usuario.id }, process.env.JWT_SECRET);
         res.cookie("santos-app", token);
 
         res.status(200).json({ token });
