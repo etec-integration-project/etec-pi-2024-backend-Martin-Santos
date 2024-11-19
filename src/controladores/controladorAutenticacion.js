@@ -131,7 +131,7 @@ export const buyCart = async (req, res) => {
     const userCookie = req.cookies['santos-app'] 
 
     if (!userCookie) { return res.json({ 'error': 'unauthorized' }) }
-    const data = jwt.verify(token, process.env.JWT_SECRET)
+    const data = jwt.verify(userCookie, process.env.JWT_SECRET)
     const user_id = data.id
 
     const [rows] = await pool.query('SELECT * FROM users WHERE id = ?', [user_id]);
