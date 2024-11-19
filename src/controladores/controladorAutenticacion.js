@@ -127,60 +127,60 @@ export const productos = async (req, res) => {
     }
 };
 
-// export const buyCart = async (req, res) => {
-//     const userCookie = req.cookies['santos-app'] 
-
-//     if (!userCookie) { return res.json({ 'error': 'unauthorized' }) }
-//     const data = jwt.verify(userCookie, process.env.JWT_SECRET)
-//     const user_id = data.id
-
-//     const [rows] = await pool.query('SELECT * FROM users WHERE id = ?', [user_id]);
-
-//         if (rows.length === 0) {
-//             return res.status(404).send('Usuario no encontrado');
-//         }
-//     const cart = req.body.cart
-
-//     await pool.query('INSERT INTO cart (userID, cartContent) VALUES (?, ?)', [user_id, cart]);
-//     return res.json({msg:"Compra realizada"});
-
-// }
-
 export const buyCart = async (req, res) => {
-    try {
-        const userCookie = req.cookies['santos-app'];
+    const userCookie = req.cookies['santos-app'] 
 
-        if (!userCookie) {
-            return res.status(401).json({ error: 'Unauthorized' });
-        }
+    if (!userCookie) { return res.json({ 'error': 'unauthorized' }) }
+    const data = jwt.verify(userCookie, process.env.JWT_SECRET)
+    const user_id = data.id
 
-        // Decode the JWT to get the user ID
-        const data = jwt.verify(userCookie, process.env.JWT_SECRET);
-        const user_id = data.id;
-
-        // Verify the user exists
-        const [rows] = await pool.query('SELECT * FROM users WHERE id = ?', [user_id]);
+    const [rows] = await pool.query('SELECT * FROM users WHERE id = ?', [user_id]);
 
         if (rows.length === 0) {
             return res.status(404).send('Usuario no encontrado');
         }
+    const cart = req.body.cart
 
-        const cart = req.body.cart;
+    await pool.query('INSERT INTO cart (userID, cartContent) VALUES (?, ?)', [user_id, cart]);
+    return res.json({msg:"Compra realizada"});
 
-        if (!cart || typeof cart !== 'object') {
-            return res.status(400).json({ error: 'Invalid cart data' });
-        }
+}
 
-        // Serialize the cart object/array into a JSON string
-        const cartContent = JSON.stringify(cart);
+// export const buyCart = async (req, res) => {
+//     try {
+//         const userCookie = req.cookies['santos-app'];
 
-        // Insert into the cart table
-        await pool.query('INSERT INTO cart (userID, cartContent) VALUES (?, ?)', [user_id, cartContent]);
+//         if (!userCookie) {
+//             return res.status(401).json({ error: 'Unauthorized' });
+//         }
 
-        return res.status(201).json({ msg: "Compra realizada" });
-    } catch (error) {
-        console.error('Error in buyCart:', error);
-        res.status(500).json({ error: 'Internal Server Error' });
-    }
-};
+//         // Decode the JWT to get the user ID
+//         const data = jwt.verify(userCookie, process.env.JWT_SECRET);
+//         const user_id = data.id;
+
+//         // Verify the user exists
+//         const [rows] = await pool.query('SELECT * FROM users WHERE id = ?', [user_id]);
+
+//         if (rows.length === 0) {
+//             return res.status(404).send('Usuario no encontrado');
+//         }
+
+//         const cart = req.body.cart;
+
+//         if (!cart || typeof cart !== 'object') {
+//             return res.status(400).json({ error: 'Invalid cart data' });
+//         }
+
+//         // Serialize the cart object/array into a JSON string
+//         const cartContent = JSON.stringify(cart);
+
+//         // Insert into the cart table
+//         await pool.query('INSERT INTO cart (userID, cartContent) VALUES (?, ?)', [user_id, cartContent]);
+
+//         return res.status(201).json({ msg: "Compra realizada" });
+//     } catch (error) {
+//         console.error('Error in buyCart:', error);
+//         res.status(500).json({ error: 'Internal Server Error' });
+//     }
+// };
 
