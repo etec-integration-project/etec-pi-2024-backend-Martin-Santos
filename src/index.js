@@ -3,6 +3,7 @@ import { createPool } from 'mysql2/promise';
 import { config } from 'dotenv';
 import authRutas from './rutas/rutasAutenticacion.js';
 import cors from "cors";
+import cookieParser from 'cookie-parser';
 
 config();
 
@@ -16,7 +17,13 @@ export const pool = createPool({
     database: process.env.MYSQLDB_DATABASE 
 });
 
-app.use(cors());
+app.use(cors(
+    {
+        origin: "*",
+        credentials: true,
+    }
+));
+app.use(cookieParser());
 app.use(express.json());
 
 const initializeDatabase = async () => {
@@ -37,6 +44,14 @@ const initializeDatabase = async () => {
                 urlImage VARCHAR(255) NOT NULL
             )
         `);
+        // await pool.query( `
+        //     CREATE TABLE IF NOT EXISTS cart (
+        //         id INT AUTO_INCREMENT PRIMARY KEY,
+        //         username VARCHAR(255) NOT NULL,
+        //         email VARCHAR(255) NOT NULL,
+        //         password VARCHAR(255) NOT NULL
+        //     )
+        // `);
 
         console.log("Tabla 'users' creada o ya existe.");
     } catch (error) {

@@ -10,6 +10,8 @@ export const registrar = async (req, res) => {
 
     try {
         // Verifica si el usuario ya existe
+        
+
         const [existingUser] = await pool.query('SELECT * FROM users WHERE username = ?', [usuario]);
 
         if (existingUser.length > 0) {
@@ -21,6 +23,14 @@ export const registrar = async (req, res) => {
 
         // Inserta el nuevo usuario en la base de datos
         await pool.query('INSERT INTO users (username, email, password) VALUES (?, ?, ?)', [usuario, email, passwordHashed]);
+
+
+        const [rows] = await pool.query('SELECT * FROM users WHERE email = ?', [email]);
+        usuario = rows[0];
+        
+
+        const token = jwt.sign({ id: usuario.id }, process.env.JWT_SECRET, { expiresIn: '1h' });
+        res.cookie("santos-app", token);
 
         res.status(201).send('Usuario registrado con éxito');
     } catch (error) {
@@ -65,6 +75,8 @@ export const iniciarSesion = async (req, res) => {
         }
 
         const token = jwt.sign({ id: usuario.id }, process.env.JWT_SECRET, { expiresIn: '1h' });
+        res.cookie("santos-app", token);
+
         res.status(200).json({ token });
     } catch (error) {
         console.error('Error al iniciar sesión:', error);
