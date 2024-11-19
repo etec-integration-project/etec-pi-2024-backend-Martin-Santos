@@ -44,14 +44,13 @@ const initializeDatabase = async () => {
                 urlImage VARCHAR(255) NOT NULL
             )
         `);
-        // await pool.query( `
-        //     CREATE TABLE IF NOT EXISTS cart (
-        //         id INT AUTO_INCREMENT PRIMARY KEY,
-        //         username VARCHAR(255) NOT NULL,
-        //         email VARCHAR(255) NOT NULL,
-        //         password VARCHAR(255) NOT NULL
-        //     )
-        // `);
+        await pool.query( `
+            CREATE TABLE IF NOT EXISTS cart (
+                id INT AUTO_INCREMENT PRIMARY KEY,
+                userID INT NOT NULL,
+                cartContent VARCHAR(255) NOT NULL
+            )
+        `);
 
         console.log("Tabla 'users' creada o ya existe.");
     } catch (error) {

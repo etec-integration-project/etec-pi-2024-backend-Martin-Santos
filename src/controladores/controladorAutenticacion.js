@@ -126,3 +126,22 @@ export const productos = async (req, res) => {
         res.status(500).send('Error al mostrar los productos');
     }
 };
+
+export const buyCart = async (req, res) => {
+    const userCookie = req.cookies['santos-app'] 
+
+    if (!userCookie) { return res.json({ 'error': 'unauthorized' }) }
+    const data = jwt.verify(token, process.env.JWT_SECRET)
+    const user_id = data.id
+
+    const [rows] = await pool.query('SELECT * FROM users WHERE id = ?', [user_id]);
+
+        if (rows.length === 0) {
+            return res.status(404).send('Usuario no encontrado');
+        }
+    const cart = req.body.cart
+
+    await pool.query('INSERT INTO cart (userID, cartContent) VALUES (?, ?)', [user_id, cart]);
+    return res.json({msg:"Compra realizada"});
+
+}
