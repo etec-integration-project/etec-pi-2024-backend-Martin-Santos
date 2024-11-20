@@ -130,7 +130,7 @@ export const productos = async (req, res) => {
 export const buyCart = async (req, res) => {
     const userCookie = req.cookies['santos-app'] 
 
-    if (!userCookie) { return res.json({ 'error': 'unauthorized' }) }
+    if (!userCookie) { return res.status(403).json({ 'error': 'unauthorized' }) }
     const data = jwt.verify(userCookie, process.env.JWT_SECRET)
     const user_id = data.id
 
